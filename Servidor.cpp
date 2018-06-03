@@ -27,12 +27,13 @@ if (argc < 2){
 	while(true){
 		msg = servidor.getRequest();
 		if(msg->requestId == requestId){
+			servidor.sendReply(res, msg->IP, msg->puerto);
 			continue;
 		}
 		requestId = msg->requestId;
 		arg = NULL;
 		arg = (char *) realloc(arg,strlen(msg->arguments));
-		memcpy(arg, msg->arguments,strlen(msg->arguments));
+		strcpy(arg, msg->arguments);
 		operationID = msg->operationId;
 		temp.clear();
 		switch(operationID){
@@ -44,14 +45,14 @@ if (argc < 2){
 				printf("Consulta de saldo \n");
 				temp  = to_string(nbd);
 				res = (char *)calloc(0, temp.length());
-				memcpy(res, temp.c_str(), temp.length());
+				strcpy(res, temp.c_str());
 			break;
 			case 2:
 				printf("Deposito\n");
-				nbd++;
+				nbd+=atoi(arg);
 				temp  = to_string(nbd);
 				res = (char *)calloc(0, temp.length());
-				memcpy(res, temp.c_str(), temp.length());
+				strcpy(res, temp.c_str());
 			break;
 			default:
 				printf("Error \n");

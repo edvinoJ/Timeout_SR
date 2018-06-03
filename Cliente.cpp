@@ -12,14 +12,15 @@ int main(int argc, char *argv[])
 	int port = atoi(argv[2]);
 	int numOp = atoi(argv[3]);
 	int before, after;
+	char * valor = (char *)"1";
 	char * respuesta;
 	for (int i = 0; i < numOp; i++){
 		respuesta = NULL;
-		respuesta = cliente1.doOperation (argv[1], port, 1, (char *)"1");
+		respuesta = cliente1.doOperation (argv[1], port, 1, valor);
 		printf("Lectura:%s\n", respuesta);
 		before = atoi(respuesta);
 		respuesta = NULL;
-		respuesta = cliente1.doOperation (argv[1], port, 2, (char *)"1");
+		respuesta = cliente1.doOperation (argv[1], port, 2, valor);
 		printf("Escritura:%s\n", respuesta);
 		after = atoi(respuesta);
 		if((before+1) != after){

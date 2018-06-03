@@ -14,6 +14,6 @@ public:
 private:
 	SocketDatagrama *socketlocal;
 	unsigned int requestId;
-	struct mensaje * msg;
+	int contador;
 };
 #endif

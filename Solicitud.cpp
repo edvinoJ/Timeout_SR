@@ -14,16 +14,15 @@ char * Solicitud::doOperation(char *IP, int puerto, int operationId, char *argum
 	for (int i = 0; i < 7; ++i){
 		message->messageType = 1;
 		message->requestId = requestId;
-		memcpy(message->IP, IP, strlen(IP));
+		strcpy(message->IP, IP);
 		message->puerto = puerto;
 		message->operationId = operationId;
 		len = strlen(arguments);
 		strcpy(message->arguments, arguments);
-
 		PaqueteDatagrama pack((char *)message, 3*sizeof(int)+16+sizeof(unsigned int)+ len, IP, puerto);
 		socketlocal->envia(&pack);
 		/*Liberar memoria*/
-
+		printf("%s\n", message->arguments);
 		PaqueteDatagrama pack2(sizeof(struct mensaje));
 		respuesta = socketlocal->recibeTimeout(pack2, 2, 500000);
 		if(respuesta>0){
